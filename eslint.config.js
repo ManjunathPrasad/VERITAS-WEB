@@ -18,5 +18,11 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      // This app fetches data in useEffect and sets state once the request
+      // settles (a standard pattern without a dedicated data-fetching
+      // library) — the same pattern this rule is designed to flag.
+      'react-hooks/set-state-in-effect': 'off',
+    },
   },
 ])

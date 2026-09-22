@@ -1,3 +1,14 @@
+# VERITAS Web
+
+Frontend for [VERITAS](https://github.com/ManjunathPrasad/VERITAS), an
+AI-powered student attendance and leave management system. React 19 +
+TypeScript + Vite + Tailwind.
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for how to deploy this to GitHub
+Pages and connect it to the backend.
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

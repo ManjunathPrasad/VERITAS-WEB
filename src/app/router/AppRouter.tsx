@@ -1,5 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 
+import { AuthProvider } from "../auth/AuthContext";
+import ProtectedRoute from "../auth/ProtectedRoute";
 import LoginPage from "../../pages/auth/LoginPage";
 import StudentDashboardPage from "../../pages/student/StudentDashboardPage";
 import FacultyDashboardPage from "../../pages/faculty/FacultyDashboardPage";
@@ -7,30 +9,41 @@ import HodDashboardPage from "../../pages/hod/HodDashboardPage";
 
 export default function AppRouter() {
     return (
-        <BrowserRouter>
-            <Routes>
+        <AuthProvider>
+            <HashRouter>
+                <Routes>
+                    <Route path="/" element={<LoginPage />} />
 
-                <Route
-                    path="/"
-                    element={<LoginPage />}
-                />
+                    <Route
+                        path="/student"
+                        element={
+                            <ProtectedRoute allowedRoles={["Student"]}>
+                                <StudentDashboardPage />
+                            </ProtectedRoute>
+                        }
+                    />
 
-                <Route
-                    path="/student"
-                    element={<StudentDashboardPage />}
-                />
+                    <Route
+                        path="/faculty"
+                        element={
+                            <ProtectedRoute allowedRoles={["Faculty", "HOD"]}>
+                                <FacultyDashboardPage />
+                            </ProtectedRoute>
+                        }
+                    />
 
-                <Route
-                    path="/faculty"
-                    element={<FacultyDashboardPage />}
-                />
+                    <Route
+                        path="/hod"
+                        element={
+                            <ProtectedRoute allowedRoles={["HOD", "Admin"]}>
+                                <HodDashboardPage />
+                            </ProtectedRoute>
+                        }
+                    />
 
-                <Route
-                    path="/hod"
-                    element={<HodDashboardPage />}
-                />
-
-            </Routes>
-        </BrowserRouter>
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+            </HashRouter>
+        </AuthProvider>
     );
 }
